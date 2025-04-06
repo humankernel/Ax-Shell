@@ -4,27 +4,21 @@ set -e  # Exit immediately if a command fails
 set -u  # Treat unset variables as errors
 set -o pipefail  # Prevent errors in a pipeline from being masked
 
-REPO_URL="https://github.com/Axenide/Ax-Shell.git"
+REPO_URL="https://github.com/humankernel/Ax-Shell.git"
 INSTALL_DIR="$HOME/.config/Ax-Shell"
 PACKAGES=(
   brightnessctl
   cava
   cliphist
-  fabric-cli-git
   gnome-bluetooth-3.0
-  gobject-introspection
-  gpu-screen-recorder
-  grimblast
   hypridle
   hyprlock
   hyprpicker
   hyprsunset
   imagemagick
   libnotify
-  matugen-bin
   noto-fonts-emoji
   playerctl
-  python-fabric-git
   python-ijson
   python-numpy
   python-pillow
@@ -40,7 +34,16 @@ PACKAGES=(
   unzip
   uwsm
   wl-clipboard
+)
+AUR=(
+  fabric-cli-git
+  gobject-introspection
+  gpu-screen-recorder
+  grimblast
+  matugen-bin
+  python-fabric-git
   wlinhibit
+  gray-git
 )
 
 # Prevent running as root
@@ -71,15 +74,14 @@ else
     git clone --depth=1 "$REPO_URL" "$INSTALL_DIR"
 fi
 
+# Install required packages
+echo "(PACMAN) Installing required packages..."
+sudo pacman -S --needed --devel "${PACKAGES[@]}" || true
 # Install required packages using the detected AUR helper (only if missing)
 echo "Installing required packages..."
-$aur_helper -Syy --needed --devel --noconfirm "${PACKAGES[@]}" || true
-
-echo "Installing gray-git..."
-yes | $aur_helper -Syy --needed --devel --noconfirm gray-git || true
+$aur_helper -S --needed --devel "${AUR[@]}" || true
 
 echo "Installing required fonts..."
-
 FONT_URL="https://github.com/zed-industries/zed-fonts/releases/download/1.2.0/zed-sans-1.2.0.zip"
 FONT_DIR="$HOME/.fonts/zed-sans"
 TEMP_ZIP="/tmp/zed-sans-1.2.0.zip"

@@ -54,7 +54,7 @@
 
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Axenide/Ax-Shell/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/humankernel/Ax-Shell/main/install.sh | bash
 ```
 
 ### Manual Installation
@@ -100,7 +100,7 @@ curl -fsSL https://raw.githubusercontent.com/Axenide/Ax-Shell/main/install.sh | 
 
 2. Download and run Ax-Shell:
     ```bash
-    git clone https://github.com/Axenide/Ax-Shell.git ~/.config/Ax-Shell
+    git clone https://github.com/humankernel/Ax-Shell.git ~/.config/Ax-Shell
     uwsm -- app python ~/.config/Ax-Shell/main.py > /dev/null 2>&1 & disown
     ```
 
